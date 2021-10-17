@@ -417,7 +417,7 @@ v-if如果想只写一个而同时切换多个元素,可以在最外成包裹一
 
 **v-model**,该指令用于表单内的标签进行双向的数据绑定
 
-**注意:**v-model只能绑定给input,textarea,select等表单元素和自定义的组件中,除此之外不能在其他标签上绑定
+**注意:**v-model只能绑定给**input,textarea,select**等表单元素和自定义的组件中,除此之外不能在其他标签上绑定
 
 **修辞符:**
 
@@ -926,7 +926,7 @@ vnode keys: tag, data, children, text, elm, ns, context, fnContext, fnOptions, f
 
 - **created**,在该函数中,data和methods等数据已经被初始化好了,如果要调用methods中的方法或者data中的数据,最早只能在created中进行操作
 
-  **注:**如果要发Ajax请求尽量在这个阶段发送
+  **注:如果要发Ajax请求尽量在这个阶段发送**
 
 - 在这两个生命周期函数之间进行Vue的编译模板,把Vue代码中的那些指令进行执行,最终在内存中生成一个编译好的最终模板字符串,然后把这个字符串渲染为内存中的DOM,但是此时只是在内存中渲染DOM,还没有将其挂载到页面中去
 
@@ -1538,7 +1538,7 @@ new Vue({
 
 **通过在一个Vue实例中向components对象中添加属性可以在局部注册只能在该Vue实例内部使用的私有组件**
 
-**对于 components`对象中的每个属性来说，其属性名就是自定义元素的名字，其属性值就是这个组件的选项对象**
+**对于 components对象中的每个属性来说，其属性名就是自定义元素的名字，其属性值就是这个组件的选项对象**
 
 ```js
 new Vue({
@@ -1895,7 +1895,7 @@ Vue.component("enlarge-text",{
 
 <script>
     Vue.component("blog-post",{
-        template:"<button v-on:click="$emit('enlarge-text',0.1)">Enlarge text</button>"
+        template:"<button v-on:click="$emit('enlarge-text',0.1)">Enlarge text</button>" 
     })
     new Vue({
         el="#app",

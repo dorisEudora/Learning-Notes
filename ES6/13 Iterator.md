@@ -65,6 +65,18 @@ iter.next() // { value: 'c', done: false }
 iter.next() // { value: undefined, done: true }
 ```
 
+```js
+let arr = [1,2,3,4,5,5,5]
+let iter = arr[Symbol.iterator]()
+        console.log(iter.next())
+        for(let item of iter){
+            console.log(item)
+        }
+//注意next之后的for输出
+```
+
+![image-20201206223610968](C:\Users\l\AppData\Roaming\Typora\typora-user-images\image-20201206223610968.png)
+
 下面是另一个类似数组的对象调用数组的`Symbol.iterator`方法的例子。
 
 ```js

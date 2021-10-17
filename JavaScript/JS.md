@@ -627,6 +627,7 @@ console.log(Object.is(NaN,NaN));//true
 console.log(Object.is(+0,-0));//false
 console.log(Object.is(123,"abc"));//false
 console.log(Object.is(123,"123"));//false
+console.log(Object.is(false,"false"))//false
 ```
 
 
@@ -906,6 +907,12 @@ for(var i=0;i<5;i++){
 }
 console.timeEnd("test");
 // 会在控制台中显示之间一共用了多长时间
+
+console.time("start");
+for(var i=0;i<8;i++){
+    console.log(i);
+}
+console.timeEnd("start");
 ```
 
 
@@ -914,7 +921,7 @@ console.timeEnd("test");
 
 ### 6.1 对象的分类
 
-**JS中数据类型有String Number Boolean Null Undefined Object前五个为基本数据类型,Object对象为引用**
+**JS中数据类型有String Number Boolean Null Undefined Object前五个为基本数据类型,Object对象为引用**;
 
 **数据类型,值只要不是前5种,都是对象**
 
@@ -1231,17 +1238,23 @@ JS为我们提供了一个工具类对象JSON,这个对象可以帮助我们将�
   通过JSON.stringify()函数可以将一个JS对象转换为JSON字符串,该函数需要一个JS对象作为参数，会返回一个JSON字符串
 
   ```js
-  var json={name:"孙悟空",age:"18"};
+  var obj={name:"孙悟空",age:"18"};
   var json=JSON.stringify(obj);
-  console,log(json);//'{"name":"孙悟空","age":"18"}'
+  console.log(json);//'{"name":"孙悟空","age":"18"}'
+  
   ```
 
+var obj2={name:"doris",age:"22"};
+  var json2=JSON.stringify(obj2);
+console.log(json2);
+  ```
+  
   **确认一个对象是否为空对象**
-
+  
   ```js
   var obj={};
   var str=JSON.stringify(obj).replace(/\s|\r\n/g,"");
-  if(str.length===2){
+if(str.length===2){
   	console.log("这是一个空对象")
   }
   ```
@@ -1315,7 +1328,7 @@ JS为我们提供了一个工具类对象JSON,这个对象可以帮助我们将�
 
 
 
-## 7.数组
+## 7.**数组**
 
 **数组也是一个对象**,它和普通对象功能类似,也是用来存储值,不同的是普通对象使用字符串作为属性名，而数组是**使**
 
@@ -2153,7 +2166,7 @@ console.log(Array.isArray(obj));//false
 
   
 
-## 8.字符串方法
+## **8.字符串方法**
 
 ### 8.1 length
 
@@ -2974,6 +2987,8 @@ let show5 = a => a * 2
 console.log(show4(10))
 console.log(show5(10))
 
+let show6 = a => a*a
+console.log(show6(100));
 ```
 
 **注意:**
@@ -3093,11 +3108,9 @@ alert("hello");
 
 
 
-### 9.10 函数原型对象prototype
+### 9.10 (重点！)函数原型对象prototype
 
-**只有函数对象才有原型这个属性,每次创建函数时,解析器都会向函数中添加一个属性prototype,这个属性对应一个**
-
-**对象，这个对象就是我们所谓的原型对象**
+**只有函数对象才有原型这个属性,每次创建函数时,解析器都会向函数中添加一个属性prototype,这个属性对应一个** **对象，这个对象就是我们所谓的原型对象**
 
 如果函数**作为普通函数**调用prototype没有任何作用,当函数**以构造函数的形式调用**时,它所创建的对象都会有一个隐含属性__ proto __，指向改构造函数的原型对象prototype
 
@@ -3527,7 +3540,7 @@ function extend(obj,deep){//因为不传是undefined转布尔值为false
 使用`Object.getPrototypeOf()`可以获取子类的继承类
 
 ```js
-function Person(name, age, gender) {
+0function Person(name, age, gender) {
     	this.name = name;
        	this.age = age;
         this.gender = gender;
@@ -3608,7 +3621,7 @@ console.log(Object.getPrototypeOf(Student) == Person)// true
       return function(obj){
           return Object.prototype.toString.call(obj)===type;
       }
-  }
+  -=}
   
   var fun=getFunc("[object Array]");
   var result=fun([10,20,30]);
@@ -4132,6 +4145,7 @@ console.log(num.say);//undefined
 
   ```js
   var reg=new RegExp("a");//可以不传入匹配模式
+  var regs = new RegExp("*a//t");
   ```
 
   **正则表达式对象可以使用test()方法可以用来检查一个字符串是否符合正则表达式的规则,如果符合返回true，否则返回false**
@@ -4141,7 +4155,7 @@ console.log(num.say);//undefined
   var str="a";
   var str1="A"；
   var result=reg.test(str);
-  var result=reg.test(str1);
+  var result1 = reg.test(str1);
   console.log(result);//true
   console.log(result);//false
   //这种正则表达式可以检查一个字符串中是否含有a，严格区分大小写，如果不区分大小写可以传入第二个参数
@@ -4368,6 +4382,7 @@ var reg=/^\w{3,}(.\w+)*@[A-z0-9]+(.[A-z]{2,5}{1,2}$/;
 ```js
 var arr="1a2b3c4d5e6f7g";
 var result=arr.split(/[A-z]/);//根据任意字母将字符串拆分
+var result1 = arr.split(/[0-9]/);//根据任意数字将字符串拆分
 console.log(result);//[1,2,3,4,5,6,7]
 ```
 
@@ -4954,19 +4969,19 @@ Person.prototype.sayName=function(){
 	alert("hello"+this.name);
 }
 
-
 //ES6写法
 class Person{
     constructor(name,age,gender){
         this.name=name;
-		this.age=age;
-		this.gender=gender;
+        this.age=age;
+        this.gender=gender;
     }
     
     sayName(){
         alert("hello"+this.name);
     }//其实就是ES6中函数的简写,但是必须用这种简写形式创建方法
 }
+
 // 表达式
 const Person = class{
       constructor(name,age,gender){
@@ -5050,7 +5065,7 @@ console.log(Person.age);//18
 
 ### 15.3 继承
 
-在class中通过**extends**关键字进行类的继承
+在class中通过**extends**关键字进行类的继承(类比java)
 
 ```js
 class Person{
@@ -5234,7 +5249,7 @@ console.log([...s]);//[1,2,3,4]
 - **两个对象总是不同**
 - **Set内部的判断两个值是否相同的算法结果类似全等运算符(===),不同在于在Set内部认为NaN与自身相等,所以也会去重**
 
-
+**set自动去重**
 
 ### 16.2 属性与方法
 
@@ -5616,9 +5631,19 @@ Proxy {a: 4, b: 2, c: 3}
       get:function(target, key, receiver) {
           return "hello"
       },
+      /*
+      get(target,key,receiver){
+      	return "hello"	
+      	//等价于
+      return Reflect.get(target,key,receiver)="hello";
+      }
+      */
       set:function(target,key,value,receiver){
   		Reflect.set(target, key, value, receiver);
-  }
+      },
+      /*set(target,key,value,receiver){
+          Reflect.set(target,key,value,receiver);
+      }*/
   });
   p.a=4;
   console.log(obj.a);//4
@@ -5724,11 +5749,13 @@ var p=new Promise(function(success,rejected){
             rejected("error");//在一次操作中之后进行success()函数和rejected()函数中的一个,执行
         }					//完毕后直接到下一个步骤
     },1000)
-}).then(function(data){//执行success()后进入该函数
-    console.log(data);//456
+}).then(function(res){//执行success()后进入该函数
+    console.log(res);//456
 },function(err){//执行rejected()后进入该函数
     console.log(err);//error
 })
+//then里面的res与err传入的参数是一致的，都是第一次操作之后返回的结果，不同的是第一个参数是成功之后返回的结果，第二个是失败之后返回的结果
+
 /*
 then()函数中的第一个回调函数中的参数就是在前一个异步操作中通过success()传的值,而第二个回调函数中的参
 数是在前一个异步操作中rejected()传的值
@@ -5750,6 +5777,8 @@ var p=new Promise(function(success,rejected){
     console.log(data);//789
 })
 ```
+
+then类似递归调用，传入的参数是上一个操作的返回结果
 
 ```js
 //链式操作中失败的时候可以执行的异步操作
@@ -5794,11 +5823,11 @@ var p=new Promise(function(success,rejected){
 */
 ```
 
-**注意：**
+#### **Promise注意：**
 
 - Promise 对象的错误具有`冒泡`性质，会一直向后传递，直到被捕获为止。也就是说，错误总是会被下一个`catch`语句捕获
 
-- `Promise`的rejected必须要有catch或者后面有then的第二个参数来接收，即使什么都不做，但是必须要接收到，不然会报错
+- `Promise`的rejected必须要有catch或者后面有then的第二个参数来接收，即使什么都不做，但是必须要接收到，不然会报错（！！！！）
 
 - 如果想要在中途断掉promise链，可以返回一个`new Promise(()=>{})`不定义任何状态，这样promise链会一直处于暂停状态
 
@@ -6340,7 +6369,7 @@ for (let v of bar()){
 **async与Generator的区别**
 
 - 有了内置执行器,Generator函数的执行必须靠执行器,而async函数自带执行器。也就是说,**async函数的执行，与普通函数一样,只要一行就能执行所以过程**
-- async的语义比Generator的语义更加的清楚,**命名与使用async函数需要用到asyuc和await关键字,**相对于Generator函数的*和yield更加让人理解,async表示函数内部有异步操作,而await表示在await后面的表达式需要等待结果
+- async的语义比Generator的语义更加的清楚,**命名与使用async函数需要用到async和await关键字,**相对于Generator函数的*和yield更加让人理解,async表示函数内部有异步操作,而await表示在await后面的表达式需要等待结果
 - yeild后面可以是任何数据类型,而正常情况下,**await后面是一个Promise对象,如果并没有手动设置一个Promise对象,而后面的表达式会被转成一个立即成功(await后面上面都不写也会传undefined)的Promise对象**
 - **async后的所有能返回值的结果都是Promise**
 

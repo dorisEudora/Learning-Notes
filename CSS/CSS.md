@@ -80,7 +80,7 @@
 
   **选择当前标签下的所有相匹配的后代,不一定是子代,可以是孙子代,中间用空格隔开**
 
-  如:.类 ul li p这样的选择器就是选择当前类下的ul标签中的所有li标签中的所有p标签
+  如: . 类 ul li p这样的选择器就是选择当前类下的ul标签中的所有li标签中的所有p标签
 
 - ##### 子元素选择器
 
@@ -277,7 +277,7 @@
 
 ## 3.文本样式
 
-### ​3.1 字体样式
+### 3.1 字体样式
 
 **1.字体类型font-family**
 
@@ -327,7 +327,7 @@
 
 **4.字体风格font-style**
 
-**font-style属性表示字体风格**,一般都用作让字体倾斜
+**font-style属性表示字体风格**,一般都用作让字体就，
 
 - nomal表示正常字体
 
@@ -361,7 +361,7 @@ color属性表示字体颜色,支持英文单词,16进制颜色和rgb颜色
 
   
 
-### ​3.2 行高line-height	
+### 3.2 行高line-height	
 
 **line-height属性设置行高**，行高和字体高度不同,但是行高默认会随着字体大小的变化而变化,而撑开盒子高
 
@@ -504,7 +504,7 @@ color属性表示字体颜色,支持英文单词,16进制颜色和rgb颜色
 
 图片不会超过x的下角所在水平线的位置,vertical-align的默认值是baseline,元素是放在父元素的基线上的
 
-​
+
 
 **不知道盒子高度的情况下将文本垂直居中**
 
@@ -526,7 +526,7 @@ p:before{
 
 值:left左对齐 right右对齐 center居中对齐 justify两端对齐 
 
-​
+
 
 ### 3.5 文本换行white-space
 
@@ -548,7 +548,7 @@ p:before{
 
 
 
-### ​3.6 单词换行word-break
+### 3.6 单词换行word-break
 
 **word-break属性可以控制单词或字符进行换行,**默认值为normal,使浏览器遵循默认的换行规则
 
@@ -558,7 +558,7 @@ word-break:keep:all,只允许在半角空格或连字符处换行。
 
 
 
-### ​3.7 文本缩进text-indent
+### 3.7 文本缩进text-indent
 
 **text-indent属性控制文本在一个父元素最前方字符的缩进距离**,该属性可以通过调试来让文本显示在父元素的一
 
@@ -570,7 +570,7 @@ word-break:keep:all,只允许在半角空格或连字符处换行。
 
 
 
-### ​3.8 控制单词形式text-transform
+### 3.8 控制单词形式text-transform
 
 **text-transform属性控制英文单词大小写转换**
 
@@ -620,7 +620,7 @@ solid实线 double双线 dotted点线 dashed虚线 wave波浪线
 
 
 
-### ​3.11 文本阴影text-shadow
+### 3.11 文本阴影text-shadow
 
 **text-shadow属性设置文本周围是否出现阴影,**默认值为none 无阴影  
 
@@ -636,7 +636,7 @@ solid实线 double双线 dotted点线 dashed虚线 wave波浪线
 
 **注:可以写多组阴影,每一组阴影中间用逗号隔开**
 
-​
+
 
 ### 3.12 文本书写模式writing-mode
 
@@ -953,10 +953,10 @@ border-image:url() slice/width outside repeat;
 | 属性            | 描述                                                         |
 | --------------- | ------------------------------------------------------------ |
 | display         | 指定 HTML 元素盒子类型。                                     |
-| flex-direction  | 指定了弹性容器中子元素的排列方式                             |
+| flex-direction  | 指定了弹性容器中**子元素**的排列方式                         |
 | justify-content | 设置弹性盒子元素在主轴（横轴）方向上的对齐方式。             |
 | align-items     | 设置弹性盒子元素在侧轴（纵轴）方向上的对齐方式。             |
-| flex-wrap       | 设置弹性盒子的子元素超出父容器时是否换行。                   |
+| flex-wrap       | 设置弹性盒子的**子元素**超出父容器时是否换行。               |
 | align-content   | 修改 flex-wrap 属性的行为，类似align-items, 但不是设置子元素对齐，而是设置行对齐 |
 | flex-flow       | flex-direction 和 flex-wrap 的简写                           |
 | order           | 设置弹性盒子的子元素排列顺序。                               |
@@ -995,7 +995,7 @@ border-image:url() slice/width outside repeat;
 | wrap         | 规定灵活的项目在必要的时候拆行或拆列。                   |
 | wrap-reverse | 规定灵活的项目在必要的时候拆行或拆列，但是以相反的顺序。 |
 | initial      | 设置该属性为它的默认值。                                 |
-| initial      | 设置该属性为它的默认值。                                 |
+| inherit      | 从父元素继承该属性。                                     |
 
 **注意:**
 
@@ -1022,8 +1022,8 @@ border-image:url() slice/width outside repeat;
 | flex-start    | 默认值。项目位于容器的开头                                   |
 | flex-end      | 项目位于容器的结尾。                                         |
 | center        | 项目位于容器的中心。                                         |
-| space-between | 项目位于各行之间留有空白的容器内。先将盒子的一行的两端占据,再将剩下的空间平分 |
-| space-around  | 项目位于各行之前、之间、之后都留有空白的容器内。将盒子的一行完全平分 |
+| space-between | 项目位于各行**之间**留有空白的容器内。先将盒子的一行的两端占据,再将剩下的空间平分 |
+| space-around  | 项目位于各行**之前、之间、之后**都留有空白的容器内。将盒子的一行完全平分 |
 | initial       | 设置该属性为它的默认值                                       |
 | inherit       | 从父元素继承该属性                                           |
 
@@ -1045,7 +1045,7 @@ border-image:url() slice/width outside repeat;
 
 **注意:如果align-items的值表示默认值stretch而且子元素又没有给具体的宽高,它的大小由里面的内容撑开**
 
-
+‘
 
 #### 4.6.5 align-content
 
@@ -1430,7 +1430,7 @@ filter: none | blur() | brightness() | contrast() | drop-shadow() | grayscale() 
 
   auto，如果都写了那么相互的拉伸力就会相互抵消,从而达不到想要的效果
 
-- 绝对定位(absolute)默认是相对于body来定位的,如果要让子元素相对于父元素进行定位,必须在父元素上同样
+- 绝对定位(absolute)默认是相对于body来定位的,**如果要让子元素相对于父元素进行定位,必须在父元素**上同样
 
   设置定位属性(静态定位除外),如果父元素没有设置定位,那么就会以最近的定位元素为参考点,以此类推最会会
 
@@ -1444,7 +1444,7 @@ filter: none | blur() | brightness() | contrast() | drop-shadow() | grayscale() 
 -  默认情况下定位流的元素后面编写的会盖住前面编写的
 - 所有绝对定位的盒子的表现形式都会变为block
 
-
+（一般父元素使用absolute，子元素使用relative）
 
 **通过绝对定位让子元素在父元素里面水平垂直居中**
 

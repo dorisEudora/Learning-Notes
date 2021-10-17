@@ -1,6 +1,6 @@
 # Vue项目创建打包与UI资源
 
-## 1.Vue项目创建
+## 1.使用vue-cli创建Vue项目
 
 ### 1.1 vue-cli脚手架
 
@@ -24,31 +24,66 @@
 
 
 
-### 1.4  安装vue-cli（2.x）
+### 1.4  安装vue-cli（4.x）
+
+#### **已经安装好了不需要再次安装**
 
 在命令行窗口输入 `cnpm i -g vue-cli` 全局安装vue-cli脚手架
 
+或者执行`npm i -g @vue/cli`
+
+如果你想指定版本安装：`npm install -g vue-cli@版本号`
+
 **注:**安装完成后可以使用 `vue -V` 查看是否安装成功
 
+### 1.5 安装项目文件，选择插件
 
+1. `vue create vue-demo` vue-demo是项目名，自取
 
-### 1.5 安装项目文件
+   ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210406162551380.png)
 
-先到项目文件夹,打开命令行窗口输入` vue init webpack 项目文件夹名`
+   - 我这里选择的手动配置
 
-![å¨è¿éæå¥å¾çæè¿°](https://img-blog.csdnimg.cn/20190326233204681.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzkwMzY5Ng==,size_16,color_FFFFFF,t_70)
+   ![img](https://img-blog.csdnimg.cn/20210406162617913.png)
 
+2. 手动配置features
 
+   - 上下键移动，空格选择或取消插件
+   - 常用选择：babel、PWA、router、vuex、css
+     ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210406163145661.png)
+   - 如果你想选择ts书写代码，选择typescript
+   - **如果选择features选择错误，`Ctrl+c`重新created 项目**
+
+   ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210406162856113.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N3ZWV0X2Nvb2tpZQ==,size_16,color_FFFFFF,t_70)
+
+3. 选择以后回车，继续操作
+
+   ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210406163320349.png)
+
+   - 一般不会保存为将来项目的预设，选择n，有需要选y
+
+   ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210406163632818.png)
+
+   ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210406163757144.png)
+
+   ![image-20210722102026842](C:\Users\l\AppData\Roaming\Typora\typora-user-images\image-20210722102026842.png)
+
+4. 继续enter
+
+   ![在这里插入图片描述](https://img-blog.csdnimg.cn/2021040616384399.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N3ZWV0X2Nvb2tpZQ==,size_16,color_FFFFFF,t_70)
 
 ### 1.6 运行项目文件
 
-在项目文件中使用`npm run dev`运行项目文件
+> 涉及npm还是yarn，具体看项目搭建后的following commands
+>
+> ![image-20210407161110110](C:\Users\l\AppData\Roaming\Typora\typora-user-images\image-20210407161110110.png)
 
-出现![å¨è¿éæå¥å¾çæè¿°](https://img-blog.csdnimg.cn/20190326233323424.png)字样后在 http://localhost:8080 查看生产的Vue项目,出现下面的页面证明Vue项目创建成功
+- cd 项目 //进入项目
+- npm：`npm run serve`
+  yarn: `yarn serve`
+- 成功之后
 
-![1553613036200](C:\Users\asus\AppData\Roaming\Typora\typora-user-images\1553613036200.png)
-
-
+![在这里插入图片描述](https://img-blog.csdnimg.cn/2021040616463151.png)
 
 ### 1.7 打包项目
 
@@ -98,36 +133,60 @@
 
   **链接：**https://muse-ui.org/#/zh-CN/tabs
 
+## 3.Vite快速构建vue项目
 
+1. npm init @vitejs/app <project name>
+2. cd <project name>
+3. npm install
+4. npm run dev
 
-## 3.Vue-cli 3.x
+## 4.创建vue项目
 
-**在Vue-cli 3.x中项目创建方式与2.x中有所不同**
+### 4.1.main.js文件
 
-### 3.1 创建项目
+main.js文件是vuecli默认的入口文件，全局组件注册、插件的引入、router的注册都在这里
 
-运行`vue create 项目名`，可自己选择配置也可使用默认配置，都可以创建完之后再添加一些插件
+### 4.2.组件嵌套：
 
+1. 全局调用组件
 
+   1. 在main.js里引入组件
 
-### 3.2 运行项目
+   2. 使用vue.component("",xx)注册全局组件
 
-使用`npm run serve`运行项目
+   3. 在其他页面直接调用全局组件
 
+      ```js
+      //1.引入组件
+      import Users from "./components/Users";
+      
+      //2.注册全局组件
+      Vue.component("users", Users);
+      ```
 
+2. 局部调用组件
 
-### 3.3 安装插件
+   1. 在某一页面引入要使用的局部组件
 
-在Vue-cli 3.x中内置了插件按照机制,可以使用`vue add 插件名`直接进行安装并且改变项目结构（所以应该小心它修改代码），如`vue add element`安装element-ui
+   2. 注册局部组件
 
-**注意：**
+      ```js
+      //1.引入组件
+      import users from "./components/Users.vue";
+      //2.注册局部组件
+      export default {
+        name: "app",
+        components: {
+          users,
+        },
+      };
+      ```
 
-- 插件只能一个个安装，不能向npm一样同时安装
-- vuex与vue-router也可以通过这个来安装,`vue add router`、`vue add vuex`
-- 通过vue add只能安装与vue相关的插件，如果是其他插件还是需要npm才能安装
+      
 
+### 4.3.组件css样式
 
+#### scoped
 
-### 3.4 项目打包
+作用：由于组件嵌套，可能会引起样式之间的相互影响，为了不使组件之间样式的混杂，在style标签里加入一个`scoped`保证样式的独立性，这样就算有组件嵌套也不会互相影响css
 
-还是使用`npm run build`命令进行打包

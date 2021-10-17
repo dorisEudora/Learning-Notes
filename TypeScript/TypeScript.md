@@ -55,6 +55,11 @@ npm install -g typescript
   flag = 123 //错误,会报错,因为不符合类型
   flag = false //正确写法,boolean类型只能写true和false
   console.log(flag)
+  
+  //可以使用var定义，如果var定义了以后，后续变量名重名的变量的类型要一致
+  var b:boolean = true
+  var b:boolean = false //可以
+  var b:number = 4//不可以
   ```
 
 - **数字类型(number)**
@@ -83,7 +88,7 @@ npm install -g typescript
   let arr2:Array<number>=[1,2,3];
 
   //第三种定义数组方法(用了下面的元组类型)
-  let arr3:[number,string]=[123,"string"];
+  let arr3:[number,string]=[123,"string"];//一一对应
 
   //第四种定义数组方法(用了下面的任意类型)
   let arr4:any[]=[1,"string",true,null];
@@ -93,17 +98,19 @@ npm install -g typescript
 
   **只读数组中的数组成员和数组本身的长度等属性都不能够修改,并且也不能赋值给原赋值的数组**
 
+  > 只允许读取，不允许修改，不能直接用来赋值给变量，可以使用as
+  
   ```typescript
   let a: number[] = [1, 2, 3, 4]
   let ro: ReadonlyArray<number> = a //其实只读数组只是一个内置定义的泛型接口
   ro[1] = 5 //报错
   ro.length = 5 //报错
   a = ro //报错,因为ro的类型为Readonly,已经改变了类型
-  a = ro as number[] //正确,不能通过上面的方法复制,但是可以通过类型断言的方式,类型断言见下面
+a = ro as number[] //正确,不能通过上面的方法复制,但是可以通过类型断言的方式,类型断言见下面
   ```
 
   **注：**TypeScript 3.4 引入了一种新语法，该语法用于对数组类型`ReadonlyArray`使用新的`readonly`修饰符
-
+  
   ```typescript
   function foo(arr: readonly string[]) {
     arr.slice() // okay
@@ -122,7 +129,7 @@ npm install -g typescript
   //因为元组类型在声明时是一一对应的,只能有2个成员
   ```
 
-  **注意：**与数组一样，元祖也可以使用`readonly`修辞了，但是，尽管出现了`readonly`类型修饰符，但类型修饰符只能用于数组类型和元组类型的语法
+  **注意：**与数组一样，元祖也可以使用`readonly`修辞了，但是，尽管出现了`readonly`类型修饰符，但类型修饰符（`readonly`）只能用于数组类型和元组文本类型的语法
 
   ```typescript
   let err1: readonly Set<number> // error!
@@ -156,7 +163,7 @@ npm install -g typescript
 
   **注意:**
 
-  - 如果没有给标识符赋值,那么标识符的值默认为索引值
+  - 如果没有给标识符赋值,那么标识符的值**默认为索引值**
 
   - 如果在期间给某个标识符进行了赋值,而之后的标识符没有赋值,那么之后表示符的索引依次为前面的值加 1
 
@@ -527,17 +534,19 @@ npm install -g typescript
 
 keyof 是索引类型查询操作符。假设 T 是一个类型，那么 keyof T 产生的类型是 T 的属性名称字符串字面量类型构成的联合类型。而[]是索引访问操作符，可以单独使用相当于是对象书写的`[]`形式，也可以与`keyof`操作符一起使用
 
+**简单来说，keyof可以使一个变量拥有一种或多种控制范围的类型，方便在不确定类型的情况下使用**
+
 **注意：**T 是数据类型，并非数据本身
 
 ```typescript
-interface Itest {
+interface Itest {//Itest 仅仅为数据类型
   webName: string
   age: number
   address: string
 }
 
 type ant = keyof Itest // 在编译器中会提示ant的类型是webName、age和address这三个字符串
-let a: ant = 'webName' // a只能是三个字符串中的一个
+let a: ant = 'webName' // a只能是三个字符串中的一个,此时a类型为string类型
 ```
 
 **使用[]**
@@ -558,16 +567,16 @@ type Test = Type['a'] // string
 **如果 T 是一个带有字符串索引签名的类型，那么`keyof T`是 string 类型，并且`T[string]`为索引签名的类型**
 
 ```typescript
-interface Map<T> {
+interface Set<T> {
   [key: string]: T
 }
-let keys: keyof Map<number>
+let keys: keyof Set<number>
 //string|number，因为可索引接口的类型如果是string的话可以传可以为string或者number
 /*
-interface Map<T> {
+interface Set<T> {
   [key: number]: T;
 }
-let keys: keyof Map<number>; //可索引接口为number则keys的类型只能是number
+let keys: keyof Set<number>; //可索引接口为number则keys的类型只能是number
 */
 let value: Map<number>['name'] //number，Map<number>['name']这是一个类型，最后结果是接口里属性的值
 ```
@@ -590,11 +599,13 @@ type Test = Type[keyof Type] // string | number | boolean | object
 
 **注意：**使用`keyof`或类似`keyof`这样需要在一些类型中选择类型时会将`null`、`undefined`、`never`类型排除掉
 
+
+
 **`keyof`操作符经常与 extends 关键字一起作为泛型的约束来使用**
 
 ```typescript
 // K只能是T的索引属性组成的一个数组，并且返回一个T属性值对应值组成的数组
-function getValue<T, K extends keyof T>(
+function getValue<T, K extends keyof T>(//继承的keyof T
   obj: T,
   names: K[]
 ): Array<T[K]> /* 可以写成T[K][] */ {
@@ -2912,7 +2923,7 @@ TypeScript 中的接口类似于 JAVA,同时还增加了更灵活的接口类型
     console.log(info.firstName + info.secondName + info.age)
   }
   // 使用这种方式TypeScript不会进行类型检验
-  printInfo(obj2) //原则上只能传入只含有firstName和secondName的对象,但是如果写在外面传入也不会报错
+  printInfo(obj2) //原则上只能传入只含有firstName和secondName的对象,但是如果	写在外面传入 也不会报错
   /*
   	但是上面这种方法在传入参数的时候不会报错,但是在函数内部使用info.age的时候就会报错,因为接口内部没有设置age属性,如果不想报错,函数内部使用形参的属性必须是只能有接口定义的
   */
@@ -3229,7 +3240,7 @@ stu.work()
 ```typescript
 //接口和继承相结合
 interface Animal {
-  eat(): void
+  eat(): void	//注意写法，只有定义没有实现
 }
 interface Plant {
   wait(): void
@@ -3329,7 +3340,7 @@ console.log(fun(123))
 */
 ```
 
-**注意：**如果编译器不能够自动地推断出类型的话，只能像上面那样明确的传入 T 的类型，在一些复杂的情况下，这是可能出现的。在大部分情况下，都是通过泛型的自动推断来约束用户的参数是否正确
+**注意：**如果编译器不能够自动地推断出类型的话，只能像上面那样明确的传入 T 的类型，在一些复杂的情况下，这是可能出现的。在大部分情况下，都是**通过泛型的自动推断来约束用户的参数是否正确**
 
 ### 7.2 泛型类
 
@@ -3615,7 +3626,7 @@ function identity<T>(arg: T): T {
 ```typescript
 // 写成这样是不会报错的，因为参数为一个泛型组成的数组
 function identity<T>(arg: T[]): T[] {
-  console.log(arg.length) // 这里会报错，因为T是任意类型，所有不一定有length属性
+  console.log(arg.length) // 这里不会报错，因为T泛型数组，数组有长度
   return arg
 }
 ```
